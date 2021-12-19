@@ -65,7 +65,7 @@ app.post("/register", async(request, response)=>{
     const hashedPassword = await genPassword(password)
     const token = jwt.sign({username:username, email:email}, process.env.SECRET_KEY)
     const result = await createUser({username,firstname,lastname, password:hashedPassword, email, isActive, token})
-    const link = `http://localhost:9000/verifyAuth/${username}/${token}`
+    const link = `https://url-shortener-api-task.herokuapp.com/verifyAuth/${username}/${token}`
 
     transporter.sendMail({
         to:email,
@@ -95,7 +95,7 @@ app.get("/verifyAuth/:username/:token", async(request, response)=>{
         const result = jwt.verify(token, process.env.SECRET_KEY)
         // response.send(result)
         const changeStatus = await changeUserStatus(username)
-        response.redirect(`http://localhost:3000/login`)
+        response.redirect(`https://url-shortener-app-task.netlify.app/login`)
     }catch(error){
         response.send(error.message)
     }
@@ -140,7 +140,7 @@ app.post("/forgot-password", async(request, response)=>{
     const token = jwt.sign({email:userFromDB.email, id:userFromDB._id, username:userFromDB.username},secret,{expiresIn: "15m"})
     
 
-    const link = `http://localhost:9000/reset-password/${userFromDB._id}/${token}`
+    const link = `https://url-shortener-api-task.herokuapp.com/${userFromDB._id}/${token}`
     
     transporter.sendMail({
         to:userFromDB.email,
@@ -169,7 +169,7 @@ app.get("/reset-password/:id/:token", async(request, response, next)=>{
     try{
         const result = jwt.verify(token, secret)
         // response.send(result)
-        response.redirect(`http://localhost:3000/reset/${userFromDB._id}/${token}`)
+        response.redirect(`https://url-shortener-app-task.netlify.app/reset/${userFromDB._id}/${token}`)
     }catch(error){
         response.send(error.message)
     }
