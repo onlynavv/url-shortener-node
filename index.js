@@ -238,7 +238,7 @@ app.post("/urlshortener/create", authAndVerifyUser,async (request, response)=>{
     const data = {inputurl, shortUrl, username:user,createdAt:dateTime, createdMonth:monthData}
     
     const result = await createUrl(data)
-    response.send(result)
+    response.status(200).send({msg:"url added successfully"})
 })
 
 // access short url
