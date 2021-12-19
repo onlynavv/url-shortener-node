@@ -38,7 +38,7 @@ const transporter = nodemailer.createTransport(sendgridTransport({
 }))
 
 app.get("/", (request, response)=>{
-    response.send("hai from reset password")
+    response.send("hai from url shortener")
 })
 
 // user registration
