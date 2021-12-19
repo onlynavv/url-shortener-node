@@ -140,7 +140,7 @@ app.post("/forgot-password", async(request, response)=>{
     const token = jwt.sign({email:userFromDB.email, id:userFromDB._id, username:userFromDB.username},secret,{expiresIn: "15m"})
     
 
-    const link = `https://url-shortener-api-task.herokuapp.com/${userFromDB._id}/${token}`
+    const link = `https://url-shortener-api-task.herokuapp.com/reset-password/${userFromDB._id}/${token}`
     
     transporter.sendMail({
         to:userFromDB.email,
